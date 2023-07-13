@@ -18,12 +18,11 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const { name, desc, content } = await request.json(); // 获取请求体中的 json 数据
+  const { username, password_digest } = await request.json(); // 获取请求体中的 json 数据
   const data = await prisma.user.create({
     data: {
-      name,
-      desc,
-      content,
+      username,
+      password_digest,
     },
   });
   return NextResponse.json({
@@ -35,7 +34,7 @@ export async function POST(request: Request) {
 
 export async function PUT(request: Request) {
   const data = await request.json(); // 获取请求体中的 json 数据
-  const history = await prisma.history.update({
+  const user = await prisma.user.update({
     where: {
       id: data.id,
     },
@@ -44,13 +43,13 @@ export async function PUT(request: Request) {
   return NextResponse.json({
     code: 200,
     message: "修改成功",
-    data: history,
+    data: user,
   });
 }
 
 export async function DELETE(request: Request) {
   const data = await request.json(); // 获取请求体中的 json 数据
-  const history = await prisma.history.delete({
+  const user = await prisma.user.delete({
     where: {
       id: data.id,
     },
@@ -58,6 +57,6 @@ export async function DELETE(request: Request) {
   return NextResponse.json({
     code: 200,
     message: "删除成功",
-    data: history,
+    data: user,
   });
 }
