@@ -41,12 +41,6 @@ export const Navigation: React.FC = () => {
               Blog
             </Link>
             <Link
-              href="/projects"
-              className="duration-200 text-zinc-400 hover:text-zinc-100"
-            >
-              Projects
-            </Link>
-            <Link
               href="/contact"
               className="duration-200 text-zinc-400 hover:text-zinc-100"
             >
