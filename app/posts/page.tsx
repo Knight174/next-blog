@@ -12,6 +12,11 @@ const redis = Redis.fromEnv();
 export const revalidate = 60;
 
 export default async function PostsPage() {
+  const view =
+    (await redis.get<number>(["pageviews", "posts", "first-blog"].join(":"))) ??
+    0;
+  console.log("first blog view", view);
+
   const views = (
     await redis.mget<number[]>(
       ...allPosts.map((p) => ["pageviews", "posts", p.slug].join(":"))
@@ -20,6 +25,9 @@ export default async function PostsPage() {
     acc[allPosts[i].slug] = v ?? 0;
     return acc;
   }, {} as Record<string, number>);
+
+  console.log("all views:", views);
+
   // const featured = allPosts.find((post) => post.slug === "unkey")!;
   // const top2 = allPosts.find((post) => post.slug === "planetfall")!;
   // const top3 = allPosts.find((post) => post.slug === "highstorm")!;
