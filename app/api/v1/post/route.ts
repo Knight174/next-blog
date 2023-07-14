@@ -18,12 +18,13 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const { title, content, authorId } = await request.json(); // 获取请求体中的 json 数据
+  const { title, content, authorId, published } = await request.json(); // 获取请求体中的 json 数据
   const data = await prisma.post.create({
     data: {
       title,
       content,
       author: { connect: { id: authorId } },
+      published,
     },
   });
   return NextResponse.json({
