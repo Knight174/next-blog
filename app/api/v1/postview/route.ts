@@ -2,9 +2,9 @@ import { Redis } from "@upstash/redis";
 import { NextResponse } from "next/server";
 
 const redis = Redis.fromEnv();
-export const config = {
-  runtime: "edge",
-};
+// export const config = {
+//   runtime: "edge",
+// };
 
 export async function POST(request: Request) {
   const body = await request.json();
