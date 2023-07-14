@@ -19,7 +19,7 @@ model User {
   updatedAt       DateTime  @updatedAt @map("updated_at")
   Comment         Comment[]
 
-  @@map("user")
+  @@map("users")
 }
 
 model Post {
@@ -33,7 +33,7 @@ model Post {
   updatedAt DateTime  @updatedAt @map("updated_at")
   Comment   Comment[]
 
-  @@map("post")
+  @@map("posts")
 }
 
 model Comment {
@@ -46,5 +46,5 @@ model Comment {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  @@map("comment")
+  @@map("comments")
 }
