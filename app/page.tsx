@@ -1,11 +1,10 @@
-import Link from "next/link";
-import React from "react";
-import Particles from "./components/particles";
+import Link from 'next/link';
+import React from 'react';
+import Particles from './components/particles';
 
 const navigation = [
-  { name: "Posts", href: "/posts" },
-  { name: "Blog", href: "/blog" },
-  { name: "Contact", href: "/contact" },
+  { name: 'Blog', href: '/blog' },
+  { name: 'Contact', href: '/contact' },
 ];
 // const skills = [
 //   { alt: "html5", label: "HTML5", color: "f16334", logo: "html5" },
@@ -78,8 +77,8 @@ export default function HomePage() {
       <div className="hidden w-screen h-px animate-glow md:block animate-fade-right bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
       <div className="my-16 animate-fade-in">
         <h2 className="text-sm text-zinc-500 text-center">
-          Hi, I'm Eric, frontend developer from China, currently living in
-          Shanghai, China.
+          I am Eric, a Frontend developer from China, currently based in
+          Shanghai.
         </h2>
         {/* <p className="my-16 flex max-w-lg border-2 overflow-auto">
           {skills.map((skill) => (
