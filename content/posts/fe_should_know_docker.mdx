@@ -1,9 +1,8 @@
 ---
-title: 'docker blog'
-description: A fully typed Redis client built for Upstash Redis and HTTP, perfect for serverless and edge runtimes.
-date: '2023-03-14'
-url: https://upstash.com/redis
-repository: upstash/upstash-redis
+title: '前端工程师也应该了解的docker'
+description: 如果你曾经也和我一样把台式电脑当作自己的游戏机，用光盘安装过单机游戏，然后打开游戏玩到“昏天黑地”，那么看完这一篇文章，你一定会使用 docker。
+date: '2023-06-29'
+url: https://juejin.cn/post/7250029395023544376
 published: true
 ---
 
@@ -13,7 +12,7 @@ published: true
 
 曾几何时想到部署那不是运维的工作吗？
 
-![Untitled](http://124.221.96.198:9010/public/docker.png)
+![Untitled](http://124.221.96.198:9010/blog/fe_should_know_docker/fe_should_know_docker_0.png)
 
 但最近在尝试部署自己的应用，docker 这一环终究是逃不过。这个技术对于前端来说，还是稍微有一点陌生。但如果你曾经也和我一样把台式电脑当作自己的游戏机，用光盘安装过单机游戏，然后打开游戏玩到“昏天黑地”，那么看完这一篇文章，你一定会使用 docker。
 
@@ -21,17 +20,11 @@ published: true
 
 在说 docker 之前，我们需要了解虚拟机。虚拟机说得通俗一点，就是依托本地物理机的环境构建出的另一台电脑：
 
-![Schematic representation of a hosted hypervisor. The virtualization software allocates a virtual contingent of hardware resources provided by the host system (CPU time, RAM, disk space, and peripherals) to each VM.](%E4%BB%80%E4%B9%88%EF%BC%9F%EF%BC%81%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%98%E4%B8%8D%E4%BC%9A%20Docker%EF%BC%9F%2023a321de973e4a1d83816f4327b19ded/Untitled%201.png)
+![Schematic representation of a hosted hypervisor. The virtualization software allocates a virtual contingent of hardware resources provided by the host system (CPU time, RAM, disk space, and peripherals) to each VM.](http://124.221.96.198:9010/blog/fe_should_know_docker/fe_should_know_docker_1.png)
 
-Schematic representation of a hosted hypervisor. The virtualization software allocates a virtual contingent of hardware resources provided by the host system (CPU time, RAM, disk space, and peripherals) to each VM.
+![虚拟机](http://124.221.96.198:9010/blog/fe_should_know_docker/fe_should_know_docker_2.png)
 
-![虚拟机](%E4%BB%80%E4%B9%88%EF%BC%9F%EF%BC%81%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%98%E4%B8%8D%E4%BC%9A%20Docker%EF%BC%9F%2023a321de973e4a1d83816f4327b19ded/Untitled%202.png)
-
-虚拟机
-
-![docker](%E4%BB%80%E4%B9%88%EF%BC%9F%EF%BC%81%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%98%E4%B8%8D%E4%BC%9A%20Docker%EF%BC%9F%2023a321de973e4a1d83816f4327b19ded/Untitled%203.png)
-
-docker
+![docker](http://124.221.96.198:9010/blog/fe_should_know_docker/fe_should_know_docker_3.png)
 
 与虚拟机相比，docker 无需虚拟硬件环境然后再跑一个操作系统，它是一种轻量级的虚拟化，这种虚拟化技术称为**容器化**。
 
@@ -65,22 +58,22 @@ close-我的电脑-F 盘-双击-选择安装目录-安装，光碟在光驱中�
 
 ## 3.2 docker 使用流程
 
-![docker 流程](%E4%BB%80%E4%B9%88%EF%BC%9F%EF%BC%81%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%98%E4%B8%8D%E4%BC%9A%20Docker%EF%BC%9F%2023a321de973e4a1d83816f4327b19ded/Untitled%204.png)
-
-docker 流程
+![docker 流程](http://124.221.96.198:9010/blog/fe_should_know_docker/fe_should_know_docker_4.png)
 
 如果将上述流程整理出来，大概是这样的：
 
 1. 准备环境：首先，需要在计算机上安装 docker。这类似于当初安装游戏的过程。
-   1. `docker —version`
-   2. `docker info`
+
+   - `docker —version`
+   - `docker info`
+
 2. 下载/构建镜像：类似于从游侠网下载游戏安装包，docker 使用镜像来构建容器。镜像是一个预先配置好的文件，其中包含了一个完整的应用程序及其依赖项。可以从 Docker Hub 等镜像仓库中搜索并下载适合需求的镜像。或者自己准备一个刻录机，自己刻录游戏，那这就是构建镜像。
-   1. `docker pull <image>`
-   2. `docker build -t <image> <path>`
+   - `docker pull <image>`
+   - `docker build -t <image> <path>`
 3. 创建容器：一旦下载了所需的镜像，就可以使用 docker 命令创建容器。容器是基于镜像创建的运行实例，类似于当初安装的游戏。我们可以指定容器的各种参数，例如端口映射、文件挂载等。
-   1. `docker run -d --name <your_contianer_name> -p 8080:80 -v $(pwd):/app <image>`
+   - `docker run -d --name <your_contianer_name> -p 8080:80 -v $(pwd):/app <image>`
 4. 运行应用程序：一旦容器创建完成，就可以使用 docker 命令来启动容器并运行应用程序。就像您当初双击运行游戏一样，docker 会启动容器并运行您所需的应用程序。
-   1. `docker exec -it <container> <command>`
+   - `docker exec -it <container> <command>`
 
 ## 3.3 docker 常用指令
 
@@ -150,7 +143,7 @@ npm create vite@latest my-react-app-docker-1 --template react-ts
 
 部署需要用到 **nginx 服务器**，这是一个高性能的开源 Web 服务器和反向代理服务器，它在处理高并发、负载均衡等方面表现卓越。下面是 `nginx.conf` 文件，属于 nginx 的主要配置文件，启动 nginx 服务后，将会根据这个文件来确定如何处理传入的请求和响应：
 
-```
+```text
 # 全局配置
 user nginx;
 worker_processes auto;
@@ -229,9 +222,7 @@ docker pull nginx:stable-alpine3.17
 
 ## 4.4 构建镜像
 
-![文件结构](%E4%BB%80%E4%B9%88%EF%BC%9F%EF%BC%81%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%98%E4%B8%8D%E4%BC%9A%20Docker%EF%BC%9F%2023a321de973e4a1d83816f4327b19ded/Untitled%205.png)
-
-文件结构
+![文件结构](http://124.221.96.198:9010/blog/fe_should_know_docker/fe_should_know_docker_5.png)
 
 现在准备工作就绪了，让我们开始构建镜像：
 
@@ -242,15 +233,11 @@ docker build -t vite-web:v1 .
 - `-t` 指定 image 的名字（`vite-web`），后面可以用冒号指定标签（`v1`），默认是 latest
 - `.` 表示 Dokcerfile 文件所在路径，docker 会在这个目录下找到 Dockfile，然后以此来构建镜像（这里表示当前路径）
 
-![构建成功](%E4%BB%80%E4%B9%88%EF%BC%9F%EF%BC%81%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%98%E4%B8%8D%E4%BC%9A%20Docker%EF%BC%9F%2023a321de973e4a1d83816f4327b19ded/Untitled%206.png)
-
-构建成功
+![构建成功](http://124.221.96.198:9010/blog/fe_should_know_docker/fe_should_know_docker_6.png)
 
 构建完成，通过指令 `docker images` 可以看到 **vite-web:v1** 镜像已经在 image 的列表中了。
 
-![镜像列表](%E4%BB%80%E4%B9%88%EF%BC%9F%EF%BC%81%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%98%E4%B8%8D%E4%BC%9A%20Docker%EF%BC%9F%2023a321de973e4a1d83816f4327b19ded/Untitled%207.png)
-
-镜像列表
+![镜像列表](http://124.221.96.198:9010/blog/fe_should_know_docker/fe_should_know_docker_7.png)
 
 ## 4.5 启动容器
 
@@ -271,7 +258,7 @@ docker run -d --name my-web-1 -p 8080:80 vite-web:v1
 docker ps
 ```
 
-![Untitled](%E4%BB%80%E4%B9%88%EF%BC%9F%EF%BC%81%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%98%E4%B8%8D%E4%BC%9A%20Docker%EF%BC%9F%2023a321de973e4a1d83816f4327b19ded/Untitled%208.png)
+![Untitled](http://124.221.96.198:9010/blog/fe_should_know_docker/fe_should_know_docker_8.png)
 
 通过 `curl` 指令来查看网页连接情况：
 
@@ -279,13 +266,11 @@ docker ps
 curl http://localhost:8080 -v
 ```
 
-![测试网页连接情况](%E4%BB%80%E4%B9%88%EF%BC%9F%EF%BC%81%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%98%E4%B8%8D%E4%BC%9A%20Docker%EF%BC%9F%2023a321de973e4a1d83816f4327b19ded/Untitled%209.png)
-
-测试网页连接情况
+![测试网页连接情况](http://124.221.96.198:9010/blog/fe_should_know_docker/fe_should_know_docker_9.png)
 
 再打开网页看看：
 
-![Untitled](%E4%BB%80%E4%B9%88%EF%BC%9F%EF%BC%81%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%98%E4%B8%8D%E4%BC%9A%20Docker%EF%BC%9F%2023a321de973e4a1d83816f4327b19ded/Untitled%2010.png)
+![Untitled](http://124.221.96.198:9010/blog/fe_should_know_docker/fe_should_know_docker_10.png)
 
 有的时候，想要查看容器的日志，比如看看为什么没有运行起来、为什么报错了、谁来访问过了等等。用这个指令：
 
@@ -294,9 +279,7 @@ docker logs my-web-1 # 用容器名称
 docker logs 00e39d9365df # 或用容器id
 ```
 
-![容器 my-web-1 的日志](%E4%BB%80%E4%B9%88%EF%BC%9F%EF%BC%81%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%98%E4%B8%8D%E4%BC%9A%20Docker%EF%BC%9F%2023a321de973e4a1d83816f4327b19ded/Untitled%2011.png)
-
-容器 my-web-1 的日志
+![容器 my-web-1 的日志](http://124.221.96.198:9010/blog/fe_should_know_docker/fe_should_know_docker_11.png)
 
 到此，前端本地部署成功！
 
@@ -340,21 +323,17 @@ chmod +x bin/setup_host.sh # 添加可执行权限
 bin/setup_host.sh
 ```
 
-![部署流程自动化](%E4%BB%80%E4%B9%88%EF%BC%9F%EF%BC%81%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%98%E4%B8%8D%E4%BC%9A%20Docker%EF%BC%9F%2023a321de973e4a1d83816f4327b19ded/Untitled%2012.png)
+![部署流程自动化](http://124.221.96.198:9010/blog/fe_should_know_docker/fe_should_know_docker_12.png)
 
 部署流程自动化
 
 自动化部署脚本成功了！！！
 
-[http://image.dbbqb.com/202306291614/9eaf43f35cbb0ab6faca3a7819d5713c/QQDQW](http://image.dbbqb.com/202306291614/9eaf43f35cbb0ab6faca3a7819d5713c/QQDQW)
-
 ## 4.7 小结
 
 用一幅图来总结这一部分内容：
 
-![本地部署前端项目](%E4%BB%80%E4%B9%88%EF%BC%9F%EF%BC%81%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%98%E4%B8%8D%E4%BC%9A%20Docker%EF%BC%9F%2023a321de973e4a1d83816f4327b19ded/Untitled%2013.png)
-
-本地部署前端项目
+![本地部署前端项目](http://124.221.96.198:9010/blog/fe_should_know_docker/fe_should_know_docker_13.png)
 
 镜像启动出一个容器环境，把容器环境中的 nginx 服务器需要的两个文件从宿主机上拷贝过来，然后把 80 端口映射到宿主机的 80 端口，在宿主机上即可访问网页。
 
@@ -402,17 +381,17 @@ app.listen(PORT, HOST, () => {
 
 在 package.json 文件中添加启动脚本：
 
-![Untitled](%E4%BB%80%E4%B9%88%EF%BC%9F%EF%BC%81%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%98%E4%B8%8D%E4%BC%9A%20Docker%EF%BC%9F%2023a321de973e4a1d83816f4327b19ded/Untitled%2014.png)
+![Untitled](http://124.221.96.198:9010/blog/fe_should_know_docker/fe_should_know_docker_14.png)
 
 运行 `npm run start` 后，使用 curl 查看回应，一切正常：
 
-![Untitled](%E4%BB%80%E4%B9%88%EF%BC%9F%EF%BC%81%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%98%E4%B8%8D%E4%BC%9A%20Docker%EF%BC%9F%2023a321de973e4a1d83816f4327b19ded/Untitled%2015.png)
+![Untitled](http://124.221.96.198:9010/blog/fe_should_know_docker/fe_should_know_docker_15.png)
 
 ## 5.2 添加 .dockerignore 和 Dockfile
 
 express 包用到了 node，本地的 node_modules 不需要拷贝进 docker，所以要用到一个很像 .gitignore 的文件 —— .dockerignore，用来忽略相应文件，.dockerignore 文件内容如下：
 
-```
+```ignore
 node_modules
 npm-debug.log
 ```
@@ -451,7 +430,7 @@ CMD ["node", "server.js"]
 docker build -t express-app .
 ```
 
-构建了一个叫做 express-app **\*\***\*\*\*\***\*\***\*\*\*\***\*\***\*\*\*\***\*\***的 image，如果不加冒号和 tag 号，那么构建出的镜像默认就是 latest 版本。
+构建了一个叫做 express-app 的 image，如果不加冒号和 tag 号，那么构建出的镜像默认就是 latest 版本。
 
 **启动容器：**
 
@@ -467,7 +446,7 @@ docker run -d --name my-express-app -p 3002:8080 express-app
 curl -i localhost:3002
 ```
 
-![Untitled](%E4%BB%80%E4%B9%88%EF%BC%9F%EF%BC%81%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%98%E4%B8%8D%E4%BC%9A%20Docker%EF%BC%9F%2023a321de973e4a1d83816f4327b19ded/Untitled%2016.png)
+![Untitled](http://124.221.96.198:9010/blog/fe_should_know_docker/fe_should_know_docker_16.png)
 
 连接正常！
 
@@ -476,8 +455,6 @@ curl -i localhost:3002
 Node 应用的部署也搞定了！
 
 至于自动化部署，按照前端自动化部署脚本照猫画虎即可，这里不多赘述了～
-
-[http://image.dbbqb.com/202306291622/b1884a1c8cc7f6083c712a857c25a76f/3xAxA](http://image.dbbqb.com/202306291622/b1884a1c8cc7f6083c712a857c25a76f/3xAxA)
 
 ## 5.4 进入容器
 
@@ -491,9 +468,7 @@ docker exec -it my-express-app ash
 
 输入 `whoami` 可以看到当前用户是 **root**：
 
-![whoami](%E4%BB%80%E4%B9%88%EF%BC%9F%EF%BC%81%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%98%E4%B8%8D%E4%BC%9A%20Docker%EF%BC%9F%2023a321de973e4a1d83816f4327b19ded/Untitled%2017.png)
-
-whoami
+![whoami](http://124.221.96.198:9010/blog/fe_should_know_docker/fe_should_know_docker_17.png)
 
 如果没有在 Dockerfile 中设置权限，那么默认都会使用 root，这是一个潜在的问题，一般生产环境不会直接使用 root 去部署服务，关于这一点先挖个坑。
 
@@ -511,9 +486,7 @@ whoami
 docker login
 ```
 
-![docker 登录成功](%E4%BB%80%E4%B9%88%EF%BC%9F%EF%BC%81%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%98%E4%B8%8D%E4%BC%9A%20Docker%EF%BC%9F%2023a321de973e4a1d83816f4327b19ded/Untitled%2018.png)
-
-docker 登录成功
+![docker 登录成功](http://124.221.96.198:9010/blog/fe_should_know_docker/fe_should_know_docker_18.png)
 
 ## 6.2 tag 标签设置
 
@@ -536,15 +509,11 @@ docker push ericknight/vite-web:latest
 docker push ericknight/express-app:latest
 ```
 
-![镜像推送](%E4%BB%80%E4%B9%88%EF%BC%9F%EF%BC%81%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%98%E4%B8%8D%E4%BC%9A%20Docker%EF%BC%9F%2023a321de973e4a1d83816f4327b19ded/Untitled%2019.png)
-
-镜像推送
+![镜像推送](http://124.221.96.198:9010/blog/fe_should_know_docker/fe_should_know_docker_19.png)
 
 之后，在 docker hub 上就能看到刚刚推送的镜像了：
 
-![你的镜像仓库](%E4%BB%80%E4%B9%88%EF%BC%9F%EF%BC%81%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%98%E4%B8%8D%E4%BC%9A%20Docker%EF%BC%9F%2023a321de973e4a1d83816f4327b19ded/Untitled%2020.png)
-
-你的镜像仓库
+![你的镜像仓库](http://124.221.96.198:9010/blog/fe_should_know_docker/fe_should_know_docker_20.png)
 
 # 7. 总结
 
